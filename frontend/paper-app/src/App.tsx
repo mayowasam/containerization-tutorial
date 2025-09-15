@@ -67,9 +67,33 @@ function App() {
   };
 
 
+ const onClick = async () => { 
 
+    try {
+            const response = await axios.get(`${import.meta.env.VITE_URL ?? 'http://localhost:4000'}/api/all`);
+
+      if (response.status >= 200 && response.status < 300) {
+        setError(null);
+        setData(response.data);
+        console.log({ error });
+
+        setLoading(false);
+
+      } else {
+        setError(`Unexpected response: ${response.status}`);
+      }
+      return
+    } catch (err) {
+      console.log(err);
+
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
+    <button onClick={onClick}>seed document</button>
       <form id="submitform" onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
         <label>
           Name:{" "}
