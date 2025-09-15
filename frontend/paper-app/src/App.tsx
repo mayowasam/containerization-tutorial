@@ -70,7 +70,7 @@ function App() {
  const onClick = async () => { 
 
     try {
-            const response = await axios.get(`${import.meta.env.VITE_URL ?? 'http://localhost:4000'}/api/all`);
+            const response = await axios.get(`${import.meta.env.VITE_URL ?? 'http://localhost:4000'}/api/seed`);
 
       if (response.status >= 200 && response.status < 300) {
         setError(null);
