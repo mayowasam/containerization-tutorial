@@ -1,11 +1,12 @@
-FROM node:24.7.0-alpine3.21
+FROM node:24-alpine
 RUN apk add --no-cache postgresql-client
 WORKDIR /app
+
 COPY package*.json ./
 ARG NODE_ENV
-RUN  if [ ${NODE_ENV} = "production" ]; then npm ci --only=production; else npm install; fi
-RUN npm install
+RUN if [ "$NODE_ENV" = "production" ]; then npm ci --only=production; else npm install; fi
+
 COPY . .
 ENV PORT=4000
-CMD ["npm", "run", "dev"]
 EXPOSE ${PORT}
+CMD ["npm", "run", "dev"]
