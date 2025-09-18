@@ -50,6 +50,16 @@ services:
     command: sh -c "until pg_isready -h postgres -p 5432 -U $POSTGRES_USER; do sleep 2; done && npx prisma migrate deploy && npx prisma generate && npm run dev"
     depends_on:
       - postgres
+    # for docker swarm
+    deploy:
+      mode: replicated
+      replicas: 4
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      update_config:
+        parallelism: 2
+        delay: 10s
   postgres:
     image: postgres:latest
     container_name: postgres
