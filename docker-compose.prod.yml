@@ -10,7 +10,7 @@ services:
       - frontend
       - backend
   frontend:
-    image: mayowasam/frontend
+    image: mayowasam/frontend:v1
     env_file: ./frontend/paper-app/.env
     environment:
     - CHOKIDAR_USEPOLLING=true   # ensures file change detection in Docker
@@ -24,7 +24,7 @@ services:
       - backend
    
   backend:
-    image: mayowasam/backend
+    image: mayowasam/backend:v1
     env_file: ./backend/.env
     # command: npm run dev
     command: sh -c "until pg_isready -h postgres -p 5432 -U $POSTGRES_USER; do sleep 2; done && npx prisma migrate deploy && npx prisma generate && npm start"
