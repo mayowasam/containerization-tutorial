@@ -93,6 +93,8 @@ services:
   # -------------------
   frontend:
     image: mayowasam/frontend:v2
+    volumes:
+      - frontend_build:/usr/share/nginx/html
     deploy:
       replicas: 1
       resources:
@@ -132,6 +134,7 @@ services:
     ports:
       - "8080:80"
     volumes:
+      - frontend_build:/usr/share/nginx/html:ro
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - frontend
@@ -185,3 +188,4 @@ secrets:
 
 volumes:
   pgdata:
+  frontend_build:
