@@ -44,9 +44,9 @@ services:
         parallelism: 1
         delay: 10s
       resources:
-      limits:
-        memory: 256M
-        cpus: "0.25"
+        limits:
+          memory: 256M
+          cpus: "0.25"
   postgres:
     image: postgres:latest
     # container_name: postgres
